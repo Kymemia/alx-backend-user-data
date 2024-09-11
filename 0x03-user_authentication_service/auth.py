@@ -76,4 +76,5 @@ class Auth:
         Returns:
             string representation of a new UUID
         """
-        return str(uuid.uuid4())
+        result = str(uuid.uuid4())
+        return result
