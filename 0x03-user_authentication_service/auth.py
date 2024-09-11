@@ -70,7 +70,7 @@ class Auth:
             return True
         return False
 
-    def _generate_uuid(self) -> str:
+    def _generate_uuid() -> str:
         """
         method definition to generate a new UUID
         Returns:
