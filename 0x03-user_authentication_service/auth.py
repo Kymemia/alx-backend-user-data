@@ -63,6 +63,6 @@ class Auth:
                 return checkpw(
                         password.encode('utf-8'), user_exists.hashed_password
                         )
-            return False
+            return True
         except NoResultFound:
             return False
