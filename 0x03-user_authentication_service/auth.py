@@ -7,7 +7,7 @@ and returns bytes
 import bcrypt
 
 
-def _hash_password(password: str) -> bytes:
+def _hash_password(self, password: str) -> bytes:
     """
     method definition that hashes the password using bcrypt
     and returns it as bytes
