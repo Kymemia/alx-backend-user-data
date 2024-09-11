@@ -47,5 +47,3 @@ class Auth:
                     email=email, hashed_password=hashed_password
                     )
             return new_user
-        except Exception as e:
-            raise e
