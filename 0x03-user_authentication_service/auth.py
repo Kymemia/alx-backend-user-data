@@ -9,6 +9,7 @@ from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
 from bcrypt import checkpw, hashpw
+import uuid
 
 
 class Auth:
@@ -68,3 +69,11 @@ class Auth:
         if bcrypt.checkpw(encoded_password, hashed_password):
             return True
         return False
+
+    def _generate_uuid(self) -> str:
+        """
+        method definition to generate a new UUID
+        Returns:
+            string representation of a new UUID
+        """
+        return str(uuid.uuid4())
