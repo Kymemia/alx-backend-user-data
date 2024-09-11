@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-"""a basic Flask App
+"""
+this is a Flask App that registers users
+after getting their email and password
 """
 from auth import Auth
 from flask import Flask, jsonify, request
