@@ -60,3 +60,30 @@ class DB:
             raise NoResultFound("No results found.")
         except InvalidRequestError:
             raise InvalidRequestError("Wrong query arguments passed.")
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+        method defintiion that takes user_id and keyword arguments,
+        and returns None
+        Args:
+            user_id: user to be updated
+            kwargs: keyword arguments based on what needs to be updated
+
+        Raises:
+            ValueError: If an argument doesn't correspond
+                        to a user attribute is passed
+        """
+        try:
+            result = self.find_user_by(id=user_id)
+
+            for x, value in kwargs.items():
+                if not hasattr(result, x):
+                    raise ValueError(f"Invalid attribute: {x}")
+                setattr(result, x, value)
+
+            self._session.commit()
+
+        except NoResultFound:
+            raise NoResultFound("No result found.")
+        except InvalidRequestError:
+            raise InvalidRequestError("Invalid request.")
