@@ -4,6 +4,7 @@
 this is a method that takes in a *password* string arguments
 and returns bytes
 """
+
 import bcrypt
 import uuid
 from db import DB
