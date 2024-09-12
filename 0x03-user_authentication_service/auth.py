@@ -129,7 +129,7 @@ class Auth:
 
     def get_reset_password_token(self, email: str) -> str:
         """
-        method definition that tales an email as string argument
+        method definition that takes an email as string argument
         and returns a string
         Args:
             email: user's email address
@@ -145,3 +145,27 @@ class Auth:
         token = str(uuid.uuid4())
         self._db.update_user(user.id, reset_token=token)
         return token
+
+    def update_password(self, reset_token: str, password: str) -> None:
+        """
+        method definition that updates a user's password
+        and takes the following arguments
+        Args:
+            reset_token: token to be reset
+            password: password to be reset
+        Raises:
+            ValueError exception if reset_token doesn't exist
+        Returns:
+            On success, returns None after hashing the password
+            and updating the user's hashed_password filed
+            with the new hashed password
+        """
+        try:
+            user = self._db.find_user_by(reset_token=reset_token)
+            hashed_password = self.hash_password(password)
+            self._db.update_user(
+                    user.id, hashed_password=hashed_password,
+                    reset_token=None
+                    )
+        except NoResultFound:
+            raise ValueError()
