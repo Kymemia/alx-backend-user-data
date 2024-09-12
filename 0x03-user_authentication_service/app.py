@@ -5,7 +5,8 @@ this is a Flask App that registers users
 after getting their email and password
 """
 from auth import Auth
-from flask import Flask, jsonify, request, abort, make_response, redirect, url_for
+from flask import Flask, jsonify, request
+from flask import abort, make_response, redirect, url_for
 
 app = Flask(__name__)
 AUTH = Auth()
@@ -60,11 +61,11 @@ def logout():
     session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id)
 
-    if user:
-        AUTH.destroy_session(user.id)
-        return redirect(url_for("/"))
-    else:
+    if not user:
         abort(403)
+
+    AUTH.destroy_session(user.id)
+    return redirect(url_for("/"))
 
 
 if __name__ == "__main__":
