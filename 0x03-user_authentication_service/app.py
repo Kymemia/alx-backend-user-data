@@ -5,8 +5,7 @@ this is a Flask App that registers users
 after getting their email and password
 """
 from auth import Auth
-from flask import Flask, jsonify, request, abort, make_response
-from flask import redirect, url_for
+from flask import Flask, jsonify, request, abort, make_response, redirect, url_for
 
 app = Flask(__name__)
 AUTH = Auth()
@@ -59,10 +58,6 @@ def logout():
     logout function that responds to the DELETE /sessions route
     """
     session_id = request.cookies.get('session_id')
-
-    if not session_id:
-        abort(403)
-
     user = AUTH.get_user_from_session_id(session_id)
 
     if user:
