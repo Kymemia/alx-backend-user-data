@@ -11,6 +11,7 @@ from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
 from bcrypt import checkpw, hashpw
+from typing import Optional
 
 
 class Auth:
@@ -126,6 +127,19 @@ class Auth:
         except NoResultFound:
             pass
 
-    def get_reset_password_token(self, email:str) -> str:
+    def get_reset_password_token(self, email: str) -> str:
         """
-        method definition
+        method definition that tales an email as string argument
+        and returns a string
+        Args:
+            email: user's email address
+        Raises:
+            ValueError exception if the user does not exist
+        Returns:
+            string token
+        """
+        user = self.get_user_by_email(email)
+        if not user:
+            raise ValueError("User does not exist.")
+
+        token = str(uuid.uuid4())
