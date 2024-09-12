@@ -4,6 +4,7 @@
 this is a Flask App that registers users
 after getting their email and password
 """
+import uuid
 from auth import Auth
 from flask import Flask, jsonify, request
 from flask import abort, make_response, redirect, url_for
@@ -80,6 +81,21 @@ def profile():
         return jsonify({"email": user.email}), 200
     else:
         abort(403)
+
+
+@app.route("/reset_password", methods=["POST"], strict_slashes=False)
+def get_reset_password_token() -> str:
+    """
+    function that responds to the POST /reset_password route
+    """
+    email = request.form.get("email")
+
+    try:
+        reset_token = AUTH.get_reset_password_token(email)
+
+        return jsonify({"email": email, "reset_token": reset_token}), 200
+    except ValueError:
+        abort(403, description="Email not registered.")
 
 
 if __name__ == "__main__":
