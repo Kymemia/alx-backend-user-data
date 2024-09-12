@@ -143,3 +143,5 @@ class Auth:
             raise ValueError("User does not exist.")
 
         token = str(uuid.uuid4())
+        user.reset_token = token
+        return token
