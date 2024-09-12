@@ -53,7 +53,7 @@ def login():
     return response
 
 
-@app.route("/sessions", methods=["DELETE"])
+@app.route("/sessions", methods=["DELETE"], strict_slashes=False)
 def logout():
     """
     logout function that responds to the DELETE /sessions route
@@ -64,6 +64,20 @@ def logout():
     if user:
         AUTH.destroy_session(user.id)
         return redirect(url_for("/"))
+    else:
+        abort(403)
+
+
+@app.route("/profile", methods=["GET"], strict_slashes=False)
+def profile():
+    """
+    function that responds to the GET /profile route
+    """
+    session_id = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(session_id)
+
+    if user:
+        return jsonify({"email": user.email}), 200
     else:
         abort(403)
 
