@@ -5,11 +5,11 @@ this is a method that takes in a *password* string arguments
 and returns bytes
 """
 import bcrypt
+import uuid
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
 from bcrypt import checkpw, hashpw
-import uuid
 
 
 class Auth:
