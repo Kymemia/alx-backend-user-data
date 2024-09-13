@@ -11,9 +11,12 @@ Args:
     in the log line (message)
 """
 import re
+from typing import List
 
 
-def filter_datum(fields, redaction, message, separator):
+def filter_datum(
+        fields: List[str], redaction: str,
+        message: str, separator: str) -> str:
     """
     method definition that returns the log message
     """
