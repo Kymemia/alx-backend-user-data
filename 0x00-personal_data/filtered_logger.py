@@ -35,10 +35,20 @@ class RedactingFormatter(logging.Formatter):
     SEPARATOR = ";"
 
     def __init__(self, fields: List[str]) -> None:
+        """
+        method definition to initializa the redacting formatter
+        """
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
+        """
+        method definition that redacts fields in the log message
+        Args:
+            record: The log record to be formatted
+        Returns:
+            str: Formatted log message correctly redacted
+        """
         pattern = "|".join(self.fields)
         record.msg = re.sub(fr'({pattern})=([^;]+)',
                             fr'\1={self.REDACTION}',
